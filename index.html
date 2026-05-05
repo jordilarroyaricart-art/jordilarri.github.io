@@ -14,10 +14,9 @@
     --border-strong: #2a3442;
     --text: #c5d1de;
     --text-dim: #7a8896;
-    --text-faint: #4a5663;
     --accent: #00ff00;
-    --accent-dim: #00b873;
-    --accent-glow: rgba(0, 255, 156, 0.15);
+    --accent-dim: #00b800;
+    --accent-glow: rgba(0, 255, 0, 0.15);
   }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
@@ -27,8 +26,8 @@
     min-height: 100vh;
     padding: 2rem 1rem;
     background-image:
-      radial-gradient(circle at 20% 0%, rgba(0, 255, 156, 0.04) 0%, transparent 50%),
-      radial-gradient(circle at 80% 100%, rgba(0, 255, 156, 0.03) 0%, transparent 50%);
+      radial-gradient(circle at 20% 0%, rgba(0, 255, 0, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 100%, rgba(0, 255, 0, 0.03) 0%, transparent 50%);
   }
   .container {
     max-width: 760px;
@@ -37,6 +36,7 @@
     border-radius: 12px;
     border: 1px solid var(--border);
     padding: 2rem;
+    position: relative;
   }
   .header {
     display: flex;
@@ -48,37 +48,26 @@
     flex-wrap: wrap;
     gap: 1rem;
   }
-  .header h1 {
-    font-size: 22px;
-    font-weight: 500;
-    margin-bottom: 4px;
-    color: var(--text);
-  }
+  .header h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; color: var(--text); }
   .header .prompt {
-    font-size: 14px;
-    color: var(--accent);
+    font-size: 14px; color: var(--accent);
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   }
   .status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: flex; align-items: center; gap: 8px;
     padding: 6px 12px;
     background: var(--accent-glow);
     border: 1px solid var(--accent-dim);
     border-radius: 8px;
   }
   .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+    width: 8px; height: 8px; border-radius: 50%;
     background: var(--accent);
     box-shadow: 0 0 8px var(--accent);
     animation: pulse 1.6s ease-in-out infinite;
   }
   .status-text {
-    font-size: 12px;
-    color: var(--accent);
+    font-size: 12px; color: var(--accent);
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     letter-spacing: 0.5px;
   }
@@ -98,19 +87,30 @@
   }
   .terminal-dots { display: flex; gap: 6px; margin-bottom: 12px; }
   .terminal-dot { width: 11px; height: 11px; border-radius: 50%; }
-  .term-output { color: var(--text); line-height: 1.7; min-height: 150px; }
+  .term-output {
+    color: var(--text); line-height: 1.7;
+    min-height: 150px;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .term-output::-webkit-scrollbar { width: 6px; }
+  .term-output::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
   .term-output .cmd { color: var(--accent); }
   .term-output .muted { color: var(--text-dim); }
+  .term-output .err { color: #ff5f56; }
+  .term-output .dir { color: #4dabf7; font-weight: 500; }
+  .term-output .file { color: var(--text); }
+  .term-output .hidden-file { color: var(--text-dim); }
   .term-cursor {
-    display: inline-block;
-    width: 8px;
-    height: 14px;
+    display: inline-block; width: 8px; height: 14px;
     background: var(--accent);
-    vertical-align: middle;
-    margin-left: 2px;
+    vertical-align: middle; margin-left: 2px;
     animation: blink 1s steps(2) infinite;
   }
   @keyframes blink { 50% { opacity: 0; } }
+
   .term-buttons { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
   .cmd-btn {
     background: transparent;
@@ -129,11 +129,35 @@
     box-shadow: 0 0 8px var(--accent-glow);
   }
 
+  /* Modo interactivo */
+  .term-input-line {
+    display: none;
+    margin-top: 8px;
+    align-items: center;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+  }
+  .term-input-line.active { display: flex; }
+  .term-prompt-text {
+    color: var(--accent);
+    margin-right: 6px;
+    white-space: nowrap;
+  }
+  .term-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: inherit;
+    font-size: inherit;
+    caret-color: var(--accent);
+  }
+
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-    margin-bottom: 1.5rem;
+    gap: 12px; margin-bottom: 1.5rem;
   }
   .stat-card {
     background: var(--surface-2);
@@ -144,56 +168,42 @@
   }
   .stat-card:hover { border-color: var(--accent-dim); }
   .stat-label {
-    font-size: 12px;
-    color: var(--text-dim);
+    font-size: 12px; color: var(--text-dim);
     margin-bottom: 6px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   }
   .stat-value {
-    font-size: 26px;
-    font-weight: 500;
-    color: var(--accent);
+    font-size: 26px; font-weight: 500; color: var(--accent);
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   }
 
   .skills-section { margin-bottom: 1.5rem; }
   .skills-title {
-    font-size: 13px;
-    color: var(--text-dim);
+    font-size: 13px; color: var(--text-dim);
     margin-bottom: 12px;
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   }
   .skills-list { display: flex; flex-direction: column; gap: 12px; }
   .skill-row { font-size: 14px; }
-  .skill-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 6px;
-  }
+  .skill-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
   .skill-name { color: var(--text); }
   .skill-percent {
     color: var(--accent);
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     font-size: 13px;
   }
-  .skill-bar {
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
+  .skill-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
   .skill-bar-fill {
-    width: 0%;
-    height: 100%;
+    width: 0%; height: 100%;
     background: var(--accent);
     box-shadow: 0 0 6px var(--accent-glow);
     border-radius: 2px;
     transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   .action-btn {
     background: transparent;
     border: 1px solid var(--border-strong);
@@ -209,6 +219,26 @@
     background: var(--accent-glow);
     border-color: var(--accent);
     color: var(--accent);
+  }
+
+  /* Botón glitch oculto */
+  .glitch-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border: none;
+    padding: 0;
+    opacity: 0.35;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .glitch-btn:hover {
+    opacity: 1;
+    transform: scale(1.5);
+    box-shadow: 0 0 4px var(--accent);
   }
 
   @media (max-width: 600px) {
@@ -240,17 +270,21 @@
       <div class="terminal-dot" style="background: #ffbd2e;"></div>
       <div class="terminal-dot" style="background: #27c93f;"></div>
     </div>
-    <div id="term-output" class="term-output">
-      <div class="cmd">$ welcome --user visitor</div>
-      <div style="margin-top: 4px;">Bienvenido. Ejecuta un comando para explorar mi perfil.</div>
-      <div class="muted" style="margin-top: 4px;">Comandos disponibles: whoami, skills, experience, contact<span class="term-cursor"></span></div>
-    </div>
-    <div class="term-buttons">
+    <div id="term-output" class="term-output"><div class="cmd">$ welcome --user visitor</div>
+<div>Bienvenido. Ejecuta un comando para explorar mi perfil.</div>
+<div class="muted">Comandos disponibles: whoami, skills, experience, contact<span class="term-cursor"></span></div></div>
+
+    <div id="term-buttons" class="term-buttons">
       <button class="cmd-btn" data-cmd="whoami">whoami</button>
       <button class="cmd-btn" data-cmd="skills">skills</button>
       <button class="cmd-btn" data-cmd="experience">experience</button>
       <button class="cmd-btn" data-cmd="contact">contact</button>
       <button class="cmd-btn" data-cmd="clear">clear</button>
+    </div>
+
+    <div id="term-input-line" class="term-input-line">
+      <span id="term-prompt" class="term-prompt-text">visitor@portfolio:~$</span>
+      <input type="text" id="term-input" class="term-input" autocomplete="off" spellcheck="false">
     </div>
   </div>
 
@@ -280,79 +314,492 @@
     <button class="action-btn" onclick="alert('Aquí enlazarás tu CV en PDF')">Descargar PDF</button>
   </div>
 
+  <!-- Botón glitch: parece un píxel suelto -->
+  <button class="glitch-btn" id="glitch-btn" aria-label="???"></button>
 </div>
 
 <script>
-  const skills = [
-    { name: 'Pentesting & Red Team', level: 85 },
-    { name: 'Análisis forense', level: 70 },
-    { name: 'Hardening de sistemas', level: 90 },
-    { name: 'Criptografía aplicada', level: 65 }
-  ];
+/* ============================================================
+   CONFIGURACIÓN — edita estos valores
+   ============================================================ */
 
-  const skillsList = document.getElementById('skills-list');
-  skills.forEach((s, i) => {
-    const row = document.createElement('div');
-    row.className = 'skill-row';
-    row.innerHTML = `
-      <div class="skill-header">
-        <span class="skill-name">${s.name}</span>
-        <span class="skill-percent">${s.level}%</span>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-bar-fill"></div>
-      </div>`;
-    skillsList.appendChild(row);
-    setTimeout(() => {
-      row.querySelector('.skill-bar-fill').style.width = s.level + '%';
-    }, 200 + i * 150);
-  });
+// Webhook de Discord para registrar comandos. Vacío = desactivado.
+// Cómo conseguirlo: en tu canal de Discord → Editar canal → Integraciones →
+// Webhooks → Nuevo Webhook → Copiar URL del Webhook
+const WEBHOOK_URL = 'https://discord.com/api/webhooks/1501326624010932264/awjxBWIspU5wSBnvKu2QfSXb1o97xNiBDwaawy1LSRTLhxx81O7Rkj8NVlnm0Ws6LT9_';
 
-  function animateCount(id, target) {
-    const el = document.getElementById(id);
-    let current = 0;
-    const step = Math.max(1, Math.round(target / 30));
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= target) { current = target; clearInterval(timer); }
-      el.textContent = current;
-    }, 40);
-  }
-  setTimeout(() => {
-    animateCount('ctf-count', 47);
-    animateCount('cve-count', 3);
-    animateCount('cert-count', 5);
-  }, 300);
+/* ============================================================
+   SISTEMA DE ARCHIVOS VIRTUAL
+   Edita el contenido para personalizar tu CV
+   ============================================================ */
 
-  const responses = {
-    whoami: `<div class="cmd">$ whoami</div>
-      <div style="margin-top: 4px;">Analista de seguridad en formación. Apasionado por la ética hacker, el pensamiento crítico y la construcción de sistemas confiables.</div>
-      <div class="muted" style="margin-top: 4px;">Localización: España · Idiomas: ES, EN</div>`,
-    skills: `<div class="cmd">$ cat skills.txt</div>
-      <div style="margin-top: 4px;">→ Burp Suite, Nmap, Metasploit, Wireshark</div>
-      <div>→ Linux hardening, Active Directory, OSINT</div>
-      <div>→ Python, Bash, PowerShell scripting</div>`,
-    experience: `<div class="cmd">$ ls -la /experience/</div>
-      <div style="margin-top: 4px;">drwx 2024  Junior SOC Analyst @ EmpresaX</div>
-      <div>drwx 2023  Prácticas pentesting @ EmpresaY</div>
-      <div>drwx 2022  Lab personal: red doméstica segmentada</div>`,
-    contact: `<div class="cmd">$ ./contact.sh</div>
-      <div style="margin-top: 4px;">→ email: tu@email.com</div>
-      <div>→ github: github.com/tuusuario</div>
-      <div>→ linkedin: /in/tuperfil · PGP: 0xABCD1234</div>`
-  };
+const FS = {
+  type: 'dir',
+  children: {
+    home: {
+      type: 'dir',
+      children: {
+        visitor: {
+          type: 'dir',
+          children: {
+            'README.md': { type: 'file', content:
+`╔════════════════════════════════════════╗
+║  CV · Seguridad Informática            ║
+╚════════════════════════════════════════╝
 
-  document.querySelectorAll('.cmd-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const cmd = btn.dataset.cmd;
-      const out = document.getElementById('term-output');
-      if (cmd === 'clear') {
-        out.innerHTML = '<div class="cmd">$ clear</div><div class="muted" style="margin-top: 4px;">Terminal limpio. Prueba otro comando.<span class="term-cursor"></span></div>';
-      } else {
-        out.innerHTML = responses[cmd];
+Estás dentro de un sistema de archivos.
+Usa "ls" para ver qué hay y "cat <archivo>"
+para leer su contenido. Prueba "help" para
+ver todos los comandos.
+
+Pista: hay cosas ocultas. Busca bien.` },
+
+            'about.txt': { type: 'file', content:
+`Analista de seguridad en formación.
+Apasionado por la ética hacker, el pensamiento crítico
+y la construcción de sistemas confiables.
+
+Localización: España
+Idiomas: Español (nativo), Inglés (B2)` },
+
+            skills: {
+              type: 'dir',
+              children: {
+                'offensive.txt': { type: 'file', content:
+`# Seguridad Ofensiva
+
+- Pentesting de aplicaciones web
+- Reconocimiento y OSINT
+- Explotación básica de vulnerabilidades
+- Post-explotación y persistencia` },
+                'defensive.txt': { type: 'file', content:
+`# Seguridad Defensiva
+
+- Hardening de sistemas Linux/Windows
+- Configuración de firewalls
+- Análisis de logs
+- Detección de intrusiones` },
+                'tools.txt': { type: 'file', content:
+`# Herramientas
+
+Reconocimiento:  Nmap, Shodan, theHarvester
+Web:             Burp Suite, OWASP ZAP, sqlmap
+Explotación:     Metasploit, Hydra
+Forense:         Wireshark, Volatility, Autopsy
+Scripting:       Python, Bash, PowerShell` }
+              }
+            },
+
+            experience: {
+              type: 'dir',
+              children: {
+                '2024_practicas.md': { type: 'file', content:
+`## 2024 · Prácticas en EmpresaX
+
+- Tareas relacionadas con [...]
+- Tecnologías: [...]
+- Logros: [...]` },
+                '2023_homelab.md': { type: 'file', content:
+`## 2023 · Lab personal
+
+Montaje de red doméstica segmentada con:
+- pfSense como firewall
+- VLANs separadas para IoT, lab y personal
+- Suricata para detección de intrusiones
+- ELK Stack para análisis de logs` }
+              }
+            },
+
+            education: {
+              type: 'dir',
+              children: {
+                'formacion.txt': { type: 'file', content:
+`# Formación
+
+- Ciclo Superior en Ciberseguridad (en curso)
+- [Otros cursos relevantes]` },
+                'certificaciones.txt': { type: 'file', content:
+`# Certificaciones
+
+[En proceso]
+- eJPT (planificada)
+- CEH (planificada)` }
+              }
+            },
+
+            'contact.txt': { type: 'file', content:
+`# Contacto
+
+Email:    tu@email.com
+GitHub:   github.com/tuusuario
+LinkedIn: linkedin.com/in/tuperfil
+PGP:      0xABCD1234` },
+
+            '.hidden': {
+              type: 'dir',
+              hidden: true,
+              children: {
+                'flag.txt': { type: 'file', content:
+`Has encontrado el flag oculto.
+
+CTF{curiosidad_es_la_primera_skill}
+
+Si llegas a entrevistarme, menciona este flag.
+Sabré que eres alguien que mira más allá de
+lo evidente. Eso ya dice mucho de ti.` }
+              }
+            }
+          }
+        }
       }
-    });
+    }
+  }
+};
+
+/* ============================================================
+   ESTADO Y UTILIDADES
+   ============================================================ */
+
+let cwd = ['home', 'visitor'];     // current working directory como array de segmentos
+let cmdHistory = [];
+let historyIdx = 0;
+let interactiveMode = false;
+
+const out = document.getElementById('term-output');
+const buttonsBar = document.getElementById('term-buttons');
+const inputLine = document.getElementById('term-input-line');
+const inputEl = document.getElementById('term-input');
+const promptEl = document.getElementById('term-prompt');
+
+function pathStr(arr) {
+  if (arr.length === 0) return '/';
+  return '/' + arr.join('/');
+}
+
+function prettyPath(arr) {
+  // /home/visitor → ~ ; /home/visitor/skills → ~/skills
+  const home = ['home', 'visitor'];
+  if (arr.length >= 2 && arr[0] === home[0] && arr[1] === home[1]) {
+    const rest = arr.slice(2);
+    return rest.length ? '~/' + rest.join('/') : '~';
+  }
+  return pathStr(arr);
+}
+
+function getNode(pathArr) {
+  let node = FS;
+  for (const seg of pathArr) {
+    if (node.type !== 'dir' || !node.children || !node.children[seg]) return null;
+    node = node.children[seg];
+  }
+  return node;
+}
+
+function resolvePath(input) {
+  // Devuelve un array de segmentos a partir del input
+  if (!input || input === '~') return ['home', 'visitor'];
+  let segments;
+  if (input.startsWith('/')) {
+    segments = input.split('/').filter(Boolean);
+  } else if (input.startsWith('~/')) {
+    segments = ['home', 'visitor', ...input.slice(2).split('/').filter(Boolean)];
+  } else {
+    segments = [...cwd, ...input.split('/').filter(Boolean)];
+  }
+  // Resolver .. y .
+  const stack = [];
+  for (const s of segments) {
+    if (s === '.') continue;
+    if (s === '..') stack.pop();
+    else stack.push(s);
+  }
+  return stack;
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function appendOutput(html) {
+  out.innerHTML += html;
+  out.scrollTop = out.scrollHeight;
+}
+
+/* ============================================================
+   COMANDOS
+   ============================================================ */
+
+const commands = {
+  help() {
+    return `<div class="muted">Comandos disponibles:</div>
+  <span class="cmd">help</span>          muestra esta ayuda
+  <span class="cmd">ls [-a] [path]</span>  lista archivos (-a incluye ocultos)
+  <span class="cmd">cd &lt;path&gt;</span>     cambia de directorio
+  <span class="cmd">pwd</span>           muestra ruta actual
+  <span class="cmd">cat &lt;file&gt;</span>    muestra contenido de un archivo
+  <span class="cmd">tree</span>          muestra árbol de directorios
+  <span class="cmd">whoami</span>        información del usuario
+  <span class="cmd">clear</span>         limpia la pantalla
+  <span class="cmd">exit</span>          vuelve al modo botones`;
+  },
+
+  ls(args) {
+    const showHidden = args.includes('-a');
+    const target = args.find(a => !a.startsWith('-')) || '.';
+    const pathArr = resolvePath(target);
+    const node = getNode(pathArr);
+    if (!node) return `<span class="err">ls: no existe el directorio: ${escapeHtml(target)}</span>`;
+    if (node.type === 'file') return `<span class="file">${escapeHtml(target)}</span>`;
+    const entries = Object.entries(node.children)
+      .filter(([n, child]) => showHidden || !child.hidden)
+      .map(([n, child]) => {
+        if (child.type === 'dir') return `<span class="dir">${n}/</span>`;
+        return `<span class="${child.hidden ? 'hidden-file' : 'file'}">${n}</span>`;
+      });
+    return entries.join('  ') || '<span class="muted">(vacío)</span>';
+  },
+
+  cd(args) {
+    const target = args[0] || '~';
+    const pathArr = resolvePath(target);
+    const node = getNode(pathArr);
+    if (!node) return `<span class="err">cd: no existe: ${escapeHtml(target)}</span>`;
+    if (node.type !== 'dir') return `<span class="err">cd: no es un directorio: ${escapeHtml(target)}</span>`;
+    cwd = pathArr;
+    updatePrompt();
+    return '';
+  },
+
+  pwd() {
+    return pathStr(cwd);
+  },
+
+  cat(args) {
+    if (!args[0]) return '<span class="err">cat: falta el nombre del archivo</span>';
+    const pathArr = resolvePath(args[0]);
+    const node = getNode(pathArr);
+    if (!node) return `<span class="err">cat: no existe: ${escapeHtml(args[0])}</span>`;
+    if (node.type === 'dir') return `<span class="err">cat: ${escapeHtml(args[0])}: es un directorio</span>`;
+    return escapeHtml(node.content);
+  },
+
+  tree() {
+    function walk(node, prefix = '', isLast = true) {
+      let result = '';
+      const children = Object.entries(node.children || {}).filter(([_, c]) => !c.hidden);
+      children.forEach(([name, child], i) => {
+        const last = i === children.length - 1;
+        const connector = last ? '└── ' : '├── ';
+        const display = child.type === 'dir'
+          ? `<span class="dir">${name}/</span>`
+          : `<span class="file">${name}</span>`;
+        result += prefix + connector + display + '\n';
+        if (child.type === 'dir') {
+          result += walk(child, prefix + (last ? '    ' : '│   '), last);
+        }
+      });
+      return result;
+    }
+    const startNode = getNode(cwd);
+    return `<span class="dir">${prettyPath(cwd)}</span>\n` + walk(startNode);
+  },
+
+  whoami() {
+    return 'visitor — explorador curioso';
+  },
+
+  clear() {
+    out.innerHTML = '';
+    return null;
+  },
+
+  exit() {
+    exitInteractive();
+    return null;
+  }
+};
+
+/* ============================================================
+   PROCESAR INPUT
+   ============================================================ */
+
+function updatePrompt() {
+  promptEl.textContent = `visitor@portfolio:${prettyPath(cwd)}$`;
+}
+
+function runCommand(line) {
+  const trimmed = line.trim();
+  if (!trimmed) return;
+
+  // Echo del comando
+  appendOutput(`<div><span class="cmd">${escapeHtml(promptEl.textContent)}</span> ${escapeHtml(trimmed)}</div>`);
+
+  // Logging opcional
+  logCommand(trimmed);
+
+  // Parsear
+  const parts = trimmed.split(/\s+/);
+  const cmd = parts[0];
+  const args = parts.slice(1);
+
+  if (commands[cmd]) {
+    const result = commands[cmd](args);
+    if (result !== null && result !== '') {
+      appendOutput(`<div>${result}</div>`);
+    }
+  } else {
+    appendOutput(`<div class="err">${escapeHtml(cmd)}: comando no encontrado. Prueba "help".</div>`);
+  }
+}
+
+inputEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const value = inputEl.value;
+    if (value.trim()) {
+      cmdHistory.push(value);
+      historyIdx = cmdHistory.length;
+    }
+    inputEl.value = '';
+    runCommand(value);
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (historyIdx > 0) {
+      historyIdx--;
+      inputEl.value = cmdHistory[historyIdx] || '';
+    }
+  } else if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (historyIdx < cmdHistory.length - 1) {
+      historyIdx++;
+      inputEl.value = cmdHistory[historyIdx] || '';
+    } else {
+      historyIdx = cmdHistory.length;
+      inputEl.value = '';
+    }
+  }
+});
+
+/* ============================================================
+   CAMBIO DE MODO
+   ============================================================ */
+
+function enterInteractive() {
+  interactiveMode = true;
+  buttonsBar.style.display = 'none';
+  inputLine.classList.add('active');
+  out.innerHTML = `<div class="cmd">[!] glitch detectado · modo interactivo activado</div>
+<div class="muted">Sistema de archivos cargado. Escribe "help" para empezar.</div>
+<div class="muted">// Aviso: los comandos pueden ser registrados con fines analíticos.</div>
+<div></div>`;
+  updatePrompt();
+  setTimeout(() => inputEl.focus(), 100);
+}
+
+function exitInteractive() {
+  interactiveMode = false;
+  inputLine.classList.remove('active');
+  buttonsBar.style.display = 'flex';
+  out.innerHTML = `<div class="cmd">$ welcome --user visitor</div>
+<div>Bienvenido. Ejecuta un comando para explorar mi perfil.</div>
+<div class="muted">Comandos disponibles: whoami, skills, experience, contact<span class="term-cursor"></span></div>`;
+}
+
+document.getElementById('glitch-btn').addEventListener('click', enterInteractive);
+
+/* ============================================================
+   LOGGING (Discord webhook)
+   ============================================================ */
+
+function logCommand(cmd) {
+  if (!WEBHOOK_URL) return;
+  try {
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        content: `\`${cmd}\` · ${navigator.language || '?'} · ${new Date().toISOString()}`
+      })
+    }).catch(() => {});
+  } catch (e) {}
+}
+
+/* ============================================================
+   MODO BOTONES (lo de antes)
+   ============================================================ */
+
+const responses = {
+  whoami: `<div class="cmd">$ whoami</div>
+<div>Analista de seguridad en formación. Apasionado por la ética hacker, el pensamiento crítico y la construcción de sistemas confiables.</div>
+<div class="muted">Localización: España · Idiomas: ES, EN</div>`,
+  skills: `<div class="cmd">$ cat skills.txt</div>
+<div>→ Burp Suite, Nmap, Metasploit, Wireshark</div>
+<div>→ Linux hardening, Active Directory, OSINT</div>
+<div>→ Python, Bash, PowerShell scripting</div>`,
+  experience: `<div class="cmd">$ ls -la /experience/</div>
+<div>drwx 2024  Junior SOC Analyst @ EmpresaX</div>
+<div>drwx 2023  Prácticas pentesting @ EmpresaY</div>
+<div>drwx 2022  Lab personal: red doméstica segmentada</div>`,
+  contact: `<div class="cmd">$ ./contact.sh</div>
+<div>→ email: tu@email.com</div>
+<div>→ github: github.com/tuusuario</div>
+<div>→ linkedin: /in/tuperfil · PGP: 0xABCD1234</div>`
+};
+
+document.querySelectorAll('.cmd-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cmd = btn.dataset.cmd;
+    if (cmd === 'clear') {
+      out.innerHTML = '<div class="cmd">$ clear</div><div class="muted">Terminal limpio. Prueba otro comando.<span class="term-cursor"></span></div>';
+    } else {
+      out.innerHTML = responses[cmd];
+    }
   });
+});
+
+/* ============================================================
+   ANIMACIONES INICIALES (skills + counters)
+   ============================================================ */
+
+const skills = [
+  { name: 'Pentesting & Red Team', level: 85 },
+  { name: 'Análisis forense', level: 70 },
+  { name: 'Hardening de sistemas', level: 90 },
+  { name: 'Criptografía aplicada', level: 65 }
+];
+
+const skillsList = document.getElementById('skills-list');
+skills.forEach((s, i) => {
+  const row = document.createElement('div');
+  row.className = 'skill-row';
+  row.innerHTML = `
+    <div class="skill-header">
+      <span class="skill-name">${s.name}</span>
+      <span class="skill-percent">${s.level}%</span>
+    </div>
+    <div class="skill-bar"><div class="skill-bar-fill"></div></div>`;
+  skillsList.appendChild(row);
+  setTimeout(() => {
+    row.querySelector('.skill-bar-fill').style.width = s.level + '%';
+  }, 200 + i * 150);
+});
+
+function animateCount(id, target) {
+  const el = document.getElementById(id);
+  let current = 0;
+  const step = Math.max(1, Math.round(target / 30));
+  const timer = setInterval(() => {
+    current += step;
+    if (current >= target) { current = target; clearInterval(timer); }
+    el.textContent = current;
+  }, 40);
+}
+setTimeout(() => {
+  animateCount('ctf-count', 47);
+  animateCount('cve-count', 3);
+  animateCount('cert-count', 5);
+}, 300);
 </script>
 </body>
 </html>
