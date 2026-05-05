@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV · Seguridad Informática</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f6f8fa;
+    color: #1f2328;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #d1d9e0;
+    padding: 2rem;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #d1d9e0;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+  .header .prompt {
+    font-size: 14px;
+    color: #59636e;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: #dafbe1;
+    border-radius: 8px;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1a7f37;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  .status-text {
+    font-size: 12px;
+    color: #1a7f37;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .terminal {
+    background: #0d1117;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #30363d;
+  }
+  .terminal-dots { display: flex; gap: 6px; margin-bottom: 12px; }
+  .terminal-dot { width: 11px; height: 11px; border-radius: 50%; }
+  .term-output { color: #c9d1d9; line-height: 1.7; min-height: 150px; }
+  .term-output .cmd { color: #7ee787; }
+  .term-output .muted { color: #8b949e; }
+  .term-buttons { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .cmd-btn {
+    background: transparent;
+    border: 1px solid #30363d;
+    color: #7ee787;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .cmd-btn:hover { background: #161b22; border-color: #7ee787; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: #f6f8fa;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  .stat-label { font-size: 13px; color: #59636e; margin-bottom: 4px; }
+  .stat-value { font-size: 24px; font-weight: 500; }
+
+  .skills-section { margin-bottom: 1.5rem; }
+  .skills-title {
+    font-size: 14px;
+    color: #59636e;
+    margin-bottom: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .skills-list { display: flex; flex-direction: column; gap: 10px; }
+  .skill-row { font-size: 13px; }
+  .skill-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .skill-percent {
+    color: #59636e;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .skill-bar {
+    height: 6px;
+    background: #f6f8fa;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .skill-bar-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .action-btn {
+    background: transparent;
+    border: 1px solid #d1d9e0;
+    color: #1f2328;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .action-btn:hover { background: #f6f8fa; border-color: #59636e; }
+
+  @media (max-width: 600px) {
+    .container { padding: 1.25rem; }
+    body { padding: 1rem 0.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div>
+      <h1>Tu Nombre</h1>
+      <p class="prompt">security_analyst@portfolio:~$</p>
+    </div>
+    <div class="status">
+      <div class="status-dot"></div>
+      <span class="status-text">SYSTEM ONLINE</span>
+    </div>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-dots">
+      <div class="terminal-dot" style="background: #ff5f56;"></div>
+      <div class="terminal-dot" style="background: #ffbd2e;"></div>
+      <div class="terminal-dot" style="background: #27c93f;"></div>
+    </div>
+    <div id="term-output" class="term-output">
+      <div class="cmd">$ welcome --user visitor</div>
+      <div style="margin-top: 4px;">Bienvenido. Ejecuta un comando para explorar mi perfil.</div>
+      <div class="muted" style="margin-top: 4px;">Comandos disponibles: whoami, skills, experience, contact</div>
+    </div>
+    <div class="term-buttons">
+      <button class="cmd-btn" data-cmd="whoami">whoami</button>
+      <button class="cmd-btn" data-cmd="skills">skills</button>
+      <button class="cmd-btn" data-cmd="experience">experience</button>
+      <button class="cmd-btn" data-cmd="contact">contact</button>
+      <button class="cmd-btn" data-cmd="clear">clear</button>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <p class="stat-label">CTFs resueltos</p>
+      <p class="stat-value" id="ctf-count">0</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">CVEs reportados</p>
+      <p class="stat-value" id="cve-count">0</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Certificaciones</p>
+      <p class="stat-value" id="cert-count">0</p>
+    </div>
+  </div>
+
+  <div class="skills-section">
+    <p class="skills-title">// Áreas de especialización</p>
+    <div id="skills-list" class="skills-list"></div>
+  </div>
+
+  <div class="actions">
+    <button class="action-btn" onclick="alert('Aquí enlazarás tu LinkedIn')">LinkedIn</button>
+    <button class="action-btn" onclick="alert('Aquí enlazarás tu GitHub')">GitHub</button>
+    <button class="action-btn" onclick="alert('Aquí enlazarás tu CV en PDF')">Descargar PDF</button>
+  </div>
+
+</div>
+
+<script>
+  const skills = [
+    { name: 'Pentesting & Red Team', level: 85, color: '#D85A30' },
+    { name: 'Análisis forense', level: 70, color: '#7F77DD' },
+    { name: 'Hardening de sistemas', level: 90, color: '#1D9E75' },
+    { name: 'Criptografía aplicada', level: 65, color: '#378ADD' }
+  ];
+
+  const skillsList = document.getElementById('skills-list');
+  skills.forEach((s, i) => {
+    const row = document.createElement('div');
+    row.className = 'skill-row';
+    row.innerHTML = `
+      <div class="skill-header">
+        <span>${s.name}</span>
+        <span class="skill-percent">${s.level}%</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-fill" style="background: ${s.color};"></div>
+      </div>`;
+    skillsList.appendChild(row);
+    setTimeout(() => {
+      row.querySelector('.skill-bar-fill').style.width = s.level + '%';
+    }, 200 + i * 150);
+  });
+
+  function animateCount(id, target) {
+    const el = document.getElementById(id);
+    let current = 0;
+    const step = Math.max(1, Math.round(target / 30));
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = current;
+    }, 40);
+  }
+  setTimeout(() => {
+    animateCount('ctf-count', 47);
+    animateCount('cve-count', 3);
+    animateCount('cert-count', 5);
+  }, 300);
+
+  const responses = {
+    whoami: `<div class="cmd">$ whoami</div>
+      <div style="margin-top: 4px;">Analista de seguridad en formación. Apasionado por la ética hacker, el pensamiento crítico y la construcción de sistemas confiables.</div>
+      <div class="muted" style="margin-top: 4px;">Localización: España · Idiomas: ES, EN</div>`,
+    skills: `<div class="cmd">$ cat skills.txt</div>
+      <div style="margin-top: 4px;">→ Burp Suite, Nmap, Metasploit, Wireshark</div>
+      <div>→ Linux hardening, Active Directory, OSINT</div>
+      <div>→ Python, Bash, PowerShell scripting</div>`,
+    experience: `<div class="cmd">$ ls -la /experience/</div>
+      <div style="margin-top: 4px;">drwx 2024  Junior SOC Analyst @ EmpresaX</div>
+      <div>drwx 2023  Prácticas pentesting @ EmpresaY</div>
+      <div>drwx 2022  Lab personal: red doméstica segmentada</div>`,
+    contact: `<div class="cmd">$ ./contact.sh</div>
+      <div style="margin-top: 4px;">→ email: tu@email.com</div>
+      <div>→ github: github.com/tuusuario</div>
+      <div>→ linkedin: /in/tuperfil · PGP: 0xABCD1234</div>`
+  };
+
+  document.querySelectorAll('.cmd-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cmd = btn.dataset.cmd;
+      const out = document.getElementById('term-output');
+      if (cmd === 'clear') {
+        out.innerHTML = '<div class="cmd">$ clear</div><div class="muted" style="margin-top: 4px;">Terminal limpio. Prueba otro comando.</div>';
+      } else {
+        out.innerHTML = responses[cmd];
+      }
+    });
+  });
+</script>
+</body>
+</html>
