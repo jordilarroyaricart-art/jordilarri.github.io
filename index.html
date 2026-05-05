@@ -6,20 +6,36 @@
 <title>CV · Seguridad Informática</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0e14;
+    --surface: #11161d;
+    --surface-2: #161c25;
+    --border: #1f2730;
+    --border-strong: #2a3442;
+    --text: #c5d1de;
+    --text-dim: #7a8896;
+    --text-faint: #4a5663;
+    --accent: #00ff9c;
+    --accent-dim: #00b873;
+    --accent-glow: rgba(0, 255, 156, 0.15);
+  }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: #f6f8fa;
-    color: #1f2328;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    background: var(--bg);
+    color: var(--text);
     line-height: 1.6;
     min-height: 100vh;
     padding: 2rem 1rem;
+    background-image:
+      radial-gradient(circle at 20% 0%, rgba(0, 255, 156, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 100%, rgba(0, 255, 156, 0.03) 0%, transparent 50%);
   }
   .container {
     max-width: 760px;
     margin: 0 auto;
-    background: #ffffff;
+    background: var(--surface);
     border-radius: 12px;
-    border: 1px solid #d1d9e0;
+    border: 1px solid var(--border);
     padding: 2rem;
   }
   .header {
@@ -28,65 +44,90 @@
     align-items: flex-start;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #d1d9e0;
+    border-bottom: 1px solid var(--border);
     flex-wrap: wrap;
     gap: 1rem;
   }
-  .header h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
   .header .prompt {
     font-size: 14px;
-    color: #59636e;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--accent);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   }
   .status {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 6px 12px;
-    background: #dafbe1;
+    background: var(--accent-glow);
+    border: 1px solid var(--accent-dim);
     border-radius: 8px;
   }
   .status-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #1a7f37;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
     animation: pulse 1.6s ease-in-out infinite;
   }
   .status-text {
     font-size: 12px;
-    color: #1a7f37;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--accent);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    letter-spacing: 0.5px;
   }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+    50% { opacity: 0.4; box-shadow: 0 0 2px var(--accent); }
+  }
 
   .terminal {
-    background: #0d1117;
-    border-radius: 12px;
+    background: #05080c;
+    border-radius: 10px;
     padding: 14px 16px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     font-size: 13px;
     margin-bottom: 1.5rem;
-    border: 1px solid #30363d;
+    border: 1px solid var(--border-strong);
   }
   .terminal-dots { display: flex; gap: 6px; margin-bottom: 12px; }
   .terminal-dot { width: 11px; height: 11px; border-radius: 50%; }
-  .term-output { color: #c9d1d9; line-height: 1.7; min-height: 150px; }
-  .term-output .cmd { color: #7ee787; }
-  .term-output .muted { color: #8b949e; }
+  .term-output { color: var(--text); line-height: 1.7; min-height: 150px; }
+  .term-output .cmd { color: var(--accent); }
+  .term-output .muted { color: var(--text-dim); }
+  .term-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 14px;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blink 1s steps(2) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
   .term-buttons { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
   .cmd-btn {
     background: transparent;
-    border: 1px solid #30363d;
-    color: #7ee787;
+    border: 1px solid var(--border-strong);
+    color: var(--accent);
     padding: 4px 10px;
-    border-radius: 8px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    border-radius: 6px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     font-size: 12px;
     cursor: pointer;
     transition: all 0.15s;
   }
-  .cmd-btn:hover { background: #161b22; border-color: #7ee787; }
+  .cmd-btn:hover {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
 
   .stats-grid {
     display: grid;
@@ -95,61 +136,88 @@
     margin-bottom: 1.5rem;
   }
   .stat-card {
-    background: #f6f8fa;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 1rem;
+    transition: border-color 0.2s;
   }
-  .stat-label { font-size: 13px; color: #59636e; margin-bottom: 4px; }
-  .stat-value { font-size: 24px; font-weight: 500; }
+  .stat-card:hover { border-color: var(--accent-dim); }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  .stat-value {
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--accent);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
 
   .skills-section { margin-bottom: 1.5rem; }
   .skills-title {
-    font-size: 14px;
-    color: #59636e;
+    font-size: 13px;
+    color: var(--text-dim);
     margin-bottom: 12px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   }
-  .skills-list { display: flex; flex-direction: column; gap: 10px; }
-  .skill-row { font-size: 13px; }
+  .skills-list { display: flex; flex-direction: column; gap: 12px; }
+  .skill-row { font-size: 14px; }
   .skill-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
+  .skill-name { color: var(--text); }
   .skill-percent {
-    color: #59636e;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--accent);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
   }
   .skill-bar {
-    height: 6px;
-    background: #f6f8fa;
-    border-radius: 3px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
     overflow: hidden;
   }
   .skill-bar-fill {
     width: 0%;
     height: 100%;
-    border-radius: 3px;
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent-glow);
+    border-radius: 2px;
     transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   .actions { display: flex; gap: 8px; flex-wrap: wrap; }
   .action-btn {
     background: transparent;
-    border: 1px solid #d1d9e0;
-    color: #1f2328;
+    border: 1px solid var(--border-strong);
+    color: var(--text);
     padding: 8px 16px;
-    border-radius: 8px;
+    border-radius: 6px;
     font-size: 14px;
     cursor: pointer;
     transition: all 0.15s;
+    font-family: inherit;
   }
-  .action-btn:hover { background: #f6f8fa; border-color: #59636e; }
+  .action-btn:hover {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
 
   @media (max-width: 600px) {
     .container { padding: 1.25rem; }
     body { padding: 1rem 0.5rem; }
+    .header h1 { font-size: 20px; }
   }
+
+  ::selection { background: var(--accent); color: var(--bg); }
 </style>
 </head>
 <body>
@@ -175,7 +243,7 @@
     <div id="term-output" class="term-output">
       <div class="cmd">$ welcome --user visitor</div>
       <div style="margin-top: 4px;">Bienvenido. Ejecuta un comando para explorar mi perfil.</div>
-      <div class="muted" style="margin-top: 4px;">Comandos disponibles: whoami, skills, experience, contact</div>
+      <div class="muted" style="margin-top: 4px;">Comandos disponibles: whoami, skills, experience, contact<span class="term-cursor"></span></div>
     </div>
     <div class="term-buttons">
       <button class="cmd-btn" data-cmd="whoami">whoami</button>
@@ -216,10 +284,10 @@
 
 <script>
   const skills = [
-    { name: 'Pentesting & Red Team', level: 85, color: '#D85A30' },
-    { name: 'Análisis forense', level: 70, color: '#7F77DD' },
-    { name: 'Hardening de sistemas', level: 90, color: '#1D9E75' },
-    { name: 'Criptografía aplicada', level: 65, color: '#378ADD' }
+    { name: 'Pentesting & Red Team', level: 85 },
+    { name: 'Análisis forense', level: 70 },
+    { name: 'Hardening de sistemas', level: 90 },
+    { name: 'Criptografía aplicada', level: 65 }
   ];
 
   const skillsList = document.getElementById('skills-list');
@@ -228,11 +296,11 @@
     row.className = 'skill-row';
     row.innerHTML = `
       <div class="skill-header">
-        <span>${s.name}</span>
+        <span class="skill-name">${s.name}</span>
         <span class="skill-percent">${s.level}%</span>
       </div>
       <div class="skill-bar">
-        <div class="skill-bar-fill" style="background: ${s.color};"></div>
+        <div class="skill-bar-fill"></div>
       </div>`;
     skillsList.appendChild(row);
     setTimeout(() => {
@@ -279,7 +347,7 @@
       const cmd = btn.dataset.cmd;
       const out = document.getElementById('term-output');
       if (cmd === 'clear') {
-        out.innerHTML = '<div class="cmd">$ clear</div><div class="muted" style="margin-top: 4px;">Terminal limpio. Prueba otro comando.</div>';
+        out.innerHTML = '<div class="cmd">$ clear</div><div class="muted" style="margin-top: 4px;">Terminal limpio. Prueba otro comando.<span class="term-cursor"></span></div>';
       } else {
         out.innerHTML = responses[cmd];
       }
