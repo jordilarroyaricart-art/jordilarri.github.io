@@ -337,9 +337,7 @@ const FS = {
 Estás dentro de un sistema de archivos.
 Usa "ls" para ver qué hay y "cat <archivo>"
 para leer su contenido. Prueba "help" para
-ver todos los comandos.
-
-Siempre hay más de lo que se ve a simple vista.` },
+ver todos los comandos.` },
 
             'about.txt': { type: 'file', content:
 `Analista de seguridad en formación.
@@ -417,10 +415,8 @@ Montaje de red doméstica segmentada con:
             'contact.txt': { type: 'file', content:
 `# Contacto
 
-Email:    tu@email.com
-GitHub:   github.com/tuusuario
-LinkedIn: linkedin.com/in/tuperfil
-PGP:      0xABCD1234` },
+Email:    jordilarroyaricart@gmail.com
+LinkedIn: www.linkedin.com/in/jordi-larroya-3b3aa0b0` },
 
             '.hidden': {
               type: 'dir',
@@ -433,7 +429,7 @@ CTF{curiosidad_es_la_primera_skill}
 
 Si llegas a entrevistarme, menciona este flag.
 Sabré que eres alguien que mira más allá de
-lo evidente. Eso ya dice mucho de ti.` }
+lo evidente. El tiempo nos muestra la realidad.` }
               }
             }
           }
@@ -690,6 +686,7 @@ function exitInteractive() {
   buttonsBar.style.display = 'flex';
   out.innerHTML = `<div class="cmd">$ welcome --user visitor</div>
 <div>Bienvenido. Ejecuta un comando para explorar mi perfil.</div>
+<div>Siempre hay más de lo que se ve a simple vista.</div>
 <div class="muted">Comandos disponibles: whoami, skills, experience, contact<span class="term-cursor"></span></div>`;
 }
 
