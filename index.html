@@ -255,7 +255,7 @@
 
   <div class="header">
     <div>
-      <h1>Tu Nombre</h1>
+      <h1>Jordi Larroya Ricart</h1>
       <p class="prompt">security_analyst@portfolio:~$</p>
     </div>
     <div class="status">
@@ -285,21 +285,19 @@
 
   <div class="stats-grid">
     <div class="stat-card">
-      <p class="stat-label">CTFs resueltos</p>
-      <p class="stat-value" id="ctf-count">0</p>
+      <p class="stat-label">Cursos</p>
+      <p class="stat-value" id="Cursos">0</p>
     </div>
     <div class="stat-card">
-      <p class="stat-label">CVEs reportados</p>
-      <p class="stat-value" id="cve-count">0</p>
+      <p class="stat-label">CP</p>
+      <p class="stat-value" id="Certificados Profesionales">0</p>
     </div>
     <div class="stat-card">
-      <p class="stat-label">Certificaciones</p>
-      <p class="stat-value" id="cert-count">0</p>
+      <p class="stat-label">Idiomas</p>
+      <p class="stat-value" id="Idiomas">0</p>
     </div>
-  </div>
   <div class="actions">
-    <button class="action-btn" onclick="alert('Aquí enlazarás tu LinkedIn')">LinkedIn</button>
-    <button class="action-btn" onclick="alert('Aquí enlazarás tu GitHub')">GitHub</button>
+    <button class="action-btn" onclick="alert('www.linkedin.com/in/jordi-larroya-3b3aa0b0')">LinkedIn</button>
     <button class="action-btn" onclick="alert('Aquí enlazarás tu CV en PDF')">Descargar PDF</button>
   </div>
 
@@ -333,7 +331,7 @@ const FS = {
           children: {
             'README.md': { type: 'file', content:
 `╔════════════════════════════════════════╗
-║  CV · Seguridad Informática            ║
+║  CV · Técnico Analista                 ║
 ╚════════════════════════════════════════╝
 
 Estás dentro de un sistema de archivos.
@@ -341,15 +339,15 @@ Usa "ls" para ver qué hay y "cat <archivo>"
 para leer su contenido. Prueba "help" para
 ver todos los comandos.
 
-Pista: hay cosas ocultas. Busca bien.` },
+Siempre hay más de lo que se ve a simple vista.` },
 
             'about.txt': { type: 'file', content:
 `Analista de seguridad en formación.
 Apasionado por la ética hacker, el pensamiento crítico
-y la construcción de sistemas confiables.
+y la adaptación como fuente de progreso.
 
 Localización: España
-Idiomas: Español (nativo), Inglés (B2)` },
+Idiomas: Español (nativo), Catalan (nativo)` },
 
             skills: {
               type: 'dir',
@@ -761,10 +759,10 @@ function animateCount(id, target) {
   }, 40);
 }
 setTimeout(() => {
-  animateCount('ctf-count', 47);
-  animateCount('cve-count', 3);
-  animateCount('cert-count', 5);
-}, 300);
+  animateCount('Cursos', 5);
+  animateCount('Certificados Profesionales', 2);
+  animateCount('Idiomas', 2); 
+  }, 300);
 </script>
 </body>
 </html>
