@@ -256,7 +256,7 @@
   <div class="header">
     <div>
       <h1>Jordi Larroya Ricart</h1>
-      <p class="prompt">security_analyst@portfolio:~$</p>
+      <p class="prompt">Técnico Analista@CV:~$</p>
     </div>
     <div class="status">
       <div class="status-dot"></div>
@@ -267,6 +267,7 @@
   <div class="terminal">
     <div id="term-output" class="term-output"><div class="cmd">$ welcome --user visitor</div>
 <div>Bienvenido. Ejecuta un comando para explorar mi perfil.</div>
+<div>Siempre hay más de lo que se ve a simple vista.</div>
 <div class="muted">Comandos disponibles: whoami, skills, experience, contact<span class="term-cursor"></span></div></div>
 
     <div id="term-buttons" class="term-buttons">
@@ -715,20 +716,20 @@ function logCommand(cmd) {
 
 const responses = {
   whoami: `<div class="cmd">$ whoami</div>
-<div>Analista de seguridad en formación. Apasionado por la ética hacker, el pensamiento crítico y la construcción de sistemas confiables.</div>
-<div class="muted">Localización: España · Idiomas: ES, EN</div>`,
+<div>Analista de seguridad en formación. Apasionado por la ética hacker, el pensamiento crítico y la adaptación como fuente de progreso.</div>
+<div class="muted">Localización: España · Idiomas: ES, CAT</div>`,
   skills: `<div class="cmd">$ cat skills.txt</div>
 <div>→ Burp Suite, Nmap, Metasploit, Wireshark</div>
 <div>→ Linux hardening, Active Directory, OSINT</div>
 <div>→ Python, Bash, PowerShell scripting</div>`,
   experience: `<div class="cmd">$ ls -la /experience/</div>
-<div>drwx 2024  Junior SOC Analyst @ EmpresaX</div>
-<div>drwx 2023  Prácticas pentesting @ EmpresaY</div>
-<div>drwx 2022  Lab personal: red doméstica segmentada</div>`,
+<div>2025 Analista automóviles @ Maswer Technical Service</div>
+<div>2022 Conductor-Coordinador @ CRM3 Asociados</div>
+<div>2016 Administrador sistemas microinformáticos @ DPH</div>
+<div>2013 MPTM Solado @ ET CIATRANS 22 BRC</div>`,
   contact: `<div class="cmd">$ ./contact.sh</div>
-<div>→ email: tu@email.com</div>
-<div>→ github: github.com/tuusuario</div>
-<div>→ linkedin: /in/tuperfil · PGP: 0xABCD1234</div>`
+<div>→ email: jordilarroyaricart@gmail.com  </div>
+<div>→ linkedin: www.linkedin.com/in/jordi-larroya-3b3aa0b0</div>`
 };
 
 document.querySelectorAll('.cmd-btn').forEach(btn => {
