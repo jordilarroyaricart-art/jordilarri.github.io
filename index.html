@@ -634,7 +634,7 @@ document.getElementById('btn-linkedin').addEventListener('click', () => {
     // Pequeño retraso antes de abrir, para que el visitante perciba el glitch
     setTimeout(() => {
       window.open('https://www.linkedin.com/in/jordi-larroya-3b3aa0b0', '_blank', 'noopener,noreferrer');
-    }, 350);
+    }, 1200);
   } else {
     window.open('https://www.linkedin.com/in/jordi-larroya-3b3aa0b0', '_blank', 'noopener,noreferrer');
   }
@@ -646,7 +646,7 @@ document.getElementById('btn-pdf').addEventListener('click', () => {
     triggerStrongGlitch();
     setTimeout(() => {
       window.open('https://mega.nz/file/97x2HYTL#gKxVglDHYAizu5-nsxXdKLJlLyR3zA319QmcYLd1FLs', '_blank', 'noopener,noreferrer');
-    }, 350);
+    }, 1200);
   } else {
     window.open('https://mega.nz/file/97x2HYTL#gKxVglDHYAizu5-nsxXdKLJlLyR3zA319QmcYLd1FLs', '_blank', 'noopener,noreferrer');
   }
@@ -657,7 +657,7 @@ document.getElementById('btn-pdf').addEventListener('click', () => {
 
 const glitchBtn = document.getElementById('glitch-btn');
 
-// Glitch periódico: cada 15-25 segundos parpadea como si fuera interferencia
+// Glitch periódico
 function scheduleGlitch() {
   const next = 4500 + Math.random() * 15000;
   setTimeout(() => {
