@@ -612,44 +612,40 @@ function exitInteractive() {
 <div class="muted">Comandos disponibles: whoami, skills, experience, contact<span class="term-cursor"></span></div>`;
 }
 document.getElementById('glitch-btn').addEventListener('click', enterInteractive);
- /* ============================================================
+/* ============================================================
    REACCIÓN DEL PÍXEL A LOS BOTONES PRINCIPALES
    ============================================================ */
-
 let linkedinTriggered = false;
 let pdfTriggered = false;
 
 function triggerStrongGlitch() {
   const btn = document.getElementById('glitch-btn');
-  btn.classList.remove('glitching');  // por si está parpadeando justo ahora
-  void btn.offsetWidth;                // fuerza reset de la animación
+  btn.classList.remove('glitching');
+  void btn.offsetWidth;
   btn.classList.add('glitching-strong');
   setTimeout(() => btn.classList.remove('glitching-strong'), 800);
 }
 
-document.getElementById('btn-linkedin').addEventListener('click', () => {
+document.getElementById('btn-linkedin').addEventListener('click', (e) => {
   if (!linkedinTriggered) {
+    e.preventDefault();
     linkedinTriggered = true;
     triggerStrongGlitch();
-    // Pequeño retraso antes de abrir, para que el visitante perciba el glitch
-    setTimeout(() => {
-      window.open('https://www.linkedin.com/in/jordi-larroya-3b3aa0b0', '_blank', 'noopener,noreferrer');
-    }, 1200);
-  } else {
-    window.open('https://www.linkedin.com/in/jordi-larroya-3b3aa0b0', '_blank', 'noopener,noreferrer');
+    e.currentTarget.textContent = 'LinkedIn ›';
+    return;
   }
+  window.open('https://www.linkedin.com/in/jordi-larroya-3b3aa0b0', '_blank', 'noopener,noreferrer');
 });
 
-document.getElementById('btn-pdf').addEventListener('click', () => {
+document.getElementById('btn-pdf').addEventListener('click', (e) => {
   if (!pdfTriggered) {
+    e.preventDefault();
     pdfTriggered = true;
     triggerStrongGlitch();
-    setTimeout(() => {
-      window.open('https://mega.nz/file/97x2HYTL#gKxVglDHYAizu5-nsxXdKLJlLyR3zA319QmcYLd1FLs', '_blank', 'noopener,noreferrer');
-    }, 1200);
-  } else {
-    window.open('https://mega.nz/file/97x2HYTL#gKxVglDHYAizu5-nsxXdKLJlLyR3zA319QmcYLd1FLs', '_blank', 'noopener,noreferrer');
+    e.currentTarget.textContent = 'Descargar PDF ›';
+    return;
   }
+  window.open('https://mega.nz/file/97x2HYTL#gKxVglDHYAizu5-nsxXdKLJlLyR3zA319QmcYLd1FLs', '_blank', 'noopener,noreferrer');
 });
  /* ============================================================
    COMPORTAMIENTO DEL PÍXEL GLITCH
