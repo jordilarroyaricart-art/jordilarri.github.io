@@ -75,7 +75,6 @@
     0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
     50% { opacity: 0.4; box-shadow: 0 0 2px var(--accent); }
   }
-
   .terminal {
     background: #05080c;
     border-radius: 10px;
@@ -110,7 +109,6 @@
     animation: blink 1s steps(2) infinite;
   }
   @keyframes blink { 50% { opacity: 0; } }
-
   .term-buttons { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
   .cmd-btn {
     background: transparent;
@@ -128,7 +126,6 @@
     border-color: var(--accent);
     box-shadow: 0 0 8px var(--accent-glow);
   }
-
   /* Modo interactivo */
   .term-input-line {
     display: none;
@@ -153,7 +150,6 @@
     font-size: inherit;
     caret-color: var(--accent);
   }
-
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -178,7 +174,6 @@
     font-size: 26px; font-weight: 500; color: var(--accent);
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   }
-
   .skills-section { margin-bottom: 1.5rem; }
   .skills-title {
     font-size: 13px; color: var(--text-dim);
@@ -202,7 +197,6 @@
     border-radius: 2px;
     transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
-
   .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   .action-btn {
     background: transparent;
@@ -220,7 +214,6 @@
     border-color: var(--accent);
     color: var(--accent);
   }
-
   /* Botón glitch oculto */
   .glitch-btn {
     position: absolute;
@@ -240,19 +233,16 @@
     transform: scale(1.5);
     box-shadow: 0 0 4px var(--accent);
   }
-
   @media (max-width: 600px) {
     .container { padding: 1.25rem; }
     body { padding: 1rem 0.5rem; }
     .header h1 { font-size: 20px; }
   }
-
   ::selection { background: var(--accent); color: var(--bg); }
 </style>
 </head>
 <body>
 <div class="container">
-
   <div class="header">
     <div>
       <h1>Jordi Larroya Ricart</h1>
@@ -263,13 +253,11 @@
       <span class="status-text">SYSTEM ONLINE</span>
     </div>
   </div>
-
   <div class="terminal">
     <div id="term-output" class="term-output"><div class="cmd">$ welcome --user visitor</div>
 <div>Bienvenido. Ejecuta un comando para explorar mi perfil.</div>
 <div>Siempre hay más de lo que se ve a simple vista.</div>
 <div class="muted">Comandos disponibles: whoami, skills, experience, contact<span class="term-cursor"></span></div></div>
-
     <div id="term-buttons" class="term-buttons">
       <button class="cmd-btn" data-cmd="whoami">whoami</button>
       <button class="cmd-btn" data-cmd="skills">skills</button>
@@ -277,51 +265,30 @@
       <button class="cmd-btn" data-cmd="contact">contact</button>
       <button class="cmd-btn" data-cmd="clear">clear</button>
     </div>
-
     <div id="term-input-line" class="term-input-line">
       <span id="term-prompt" class="term-prompt-text">visitor@portfolio:~$</span>
       <input type="text" id="term-input" class="term-input" autocomplete="off" spellcheck="false">
     </div>
   </div>
-
-  <div class="stats-grid">
-    <div class="stat-card">
-      <p class="stat-label">Cursos</p>
-      <p class="stat-value" id="Cursos">0</p>
-    </div>
-    <div class="stat-card">
-      <p class="stat-label">CP</p>
-      <p class="stat-value" id="Certificados Profesionales">0</p>
-    </div>
-    <div class="stat-card">
-      <p class="stat-label">Idiomas</p>
-      <p class="stat-value" id="Idiomas">0</p>
-    </div>
-  </div>
   <div class="actions">
-    <button class="action-btn" onclick="alert('www.linkedin.com/in/jordi-larroya-3b3aa0b0')">LinkedIn</button>
-    <button class="action-btn" onclick="alert('https://mega.nz/file/97x2HYTL#gKxVglDHYAizu5-nsxXdKLJlLyR3zA319QmcYLd1FLs')">Descargar PDF</button>
+    <button class="action-btn" onclick="window.open('www.linkedin.com/in/jordi-larroya-3b3aa0b0', '_blank', 'noopener,noreferrer')">LinkedIn</button>
+    <button class="action-btn" onclick="window.open('https://mega.nz/file/97x2HYTL#gKxVglDHYAizu5-nsxXdKLJlLyR3zA319QmcYLd1FLs', '_blank', 'noopener,noreferrer')">Descargar PDF</button>
   </div>
-
   <!-- Botón glitch: parece un píxel suelto -->
   <button class="glitch-btn" id="glitch-btn" aria-label="???"></button>
 </div>
-
 <script>
 /* ============================================================
    CONFIGURACIÓN — edita estos valores
    ============================================================ */
-
 // Webhook de Discord para registrar comandos. Vacío = desactivado.
 // Cómo conseguirlo: en tu canal de Discord → Editar canal → Integraciones →
 // Webhooks → Nuevo Webhook → Copiar URL del Webhook
 const WEBHOOK_URL = 'https://discord.com/api/webhooks/1501326624010932264/awjxBWIspU5wSBnvKu2QfSXb1o97xNiBDwaawy1LSRTLhxx81O7Rkj8NVlnm0Ws6LT9_';
-
 /* ============================================================
    SISTEMA DE ARCHIVOS VIRTUAL
    Edita el contenido para personalizar tu CV
    ============================================================ */
-
 const FS = {
   type: 'dir',
   children: {
@@ -335,7 +302,6 @@ const FS = {
 `╔════════════════════════════════════════╗
 ║  CV · Técnico Analista                 ║
 ╚════════════════════════════════════════╝
-
 Estás dentro de un sistema de archivos.
 Usa "ls" para ver qué hay y "cat <archivo>"
 para leer su contenido. Prueba "help" para
@@ -348,7 +314,6 @@ y la adaptación como fuente de progreso.
 
 Localización: España
 Idiomas: Español (nativo), Catalan (nativo)` },
-
             skills: {
               type: 'dir',
               children: {
@@ -360,7 +325,6 @@ Idiomas: Español (nativo), Catalan (nativo)` },
 → Coordinación, Docencia, Optimización de procesos de trabajo` }
               }
             },
-
             experience: {
               type: 'dir',
               children: {
@@ -374,13 +338,11 @@ Idiomas: Español (nativo), Catalan (nativo)` },
                 '2022_CRM3.md': { type: 'file', content:
 `## 2022 · CRM3
 
-
 - Conducción profesional
 - Responsable de grupos de trabajo y formación
 - Recopilación y gestión de datos` }
               }
             },
-
             education: {
               type: 'dir',
               children: {
@@ -391,13 +353,12 @@ Idiomas: Español (nativo), Catalan (nativo)` },
 - CP N2 Sistemas Microinformáticos` }
              }
             },
-
             'contact.txt': { type: 'file', content:
 `# Contacto
 
 Email:    jordilarroyaricart@gmail.com
-LinkedIn: www.linkedin.com/in/jordi-larroya-3b3aa0b0` },
-
+LinkedIn: www.linkedin.com/in/jordi-larroya-3b3aa0b0
+Teléfono: 680 398 048` },
             '.hidden': {
               type: 'dir',
               hidden: true,
@@ -418,27 +379,22 @@ lo evidente. El tiempo nos muestra la realidad.` }
     }
   }
 };
-
 /* ============================================================
    ESTADO Y UTILIDADES
    ============================================================ */
-
 let cwd = ['home', 'visitor'];     // current working directory como array de segmentos
 let cmdHistory = [];
 let historyIdx = 0;
 let interactiveMode = false;
-
 const out = document.getElementById('term-output');
 const buttonsBar = document.getElementById('term-buttons');
 const inputLine = document.getElementById('term-input-line');
 const inputEl = document.getElementById('term-input');
 const promptEl = document.getElementById('term-prompt');
-
 function pathStr(arr) {
   if (arr.length === 0) return '/';
   return '/' + arr.join('/');
 }
-
 function prettyPath(arr) {
   // /home/visitor → ~ ; /home/visitor/skills → ~/skills
   const home = ['home', 'visitor'];
@@ -448,7 +404,6 @@ function prettyPath(arr) {
   }
   return pathStr(arr);
 }
-
 function getNode(pathArr) {
   let node = FS;
   for (const seg of pathArr) {
@@ -457,7 +412,6 @@ function getNode(pathArr) {
   }
   return node;
 }
-
 function resolvePath(input) {
   // Devuelve un array de segmentos a partir del input
   if (!input || input === '~') return ['home', 'visitor'];
@@ -478,22 +432,18 @@ function resolvePath(input) {
   }
   return stack;
 }
-
 function escapeHtml(s) {
   return String(s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;')
     .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
-
 function appendOutput(html) {
   out.innerHTML += html;
   out.scrollTop = out.scrollHeight;
 }
-
 /* ============================================================
    COMANDOS
    ============================================================ */
-
 const commands = {
   help() {
     return `<div class="muted">Comandos disponibles:</div>
@@ -507,7 +457,6 @@ const commands = {
   <span class="cmd">clear</span>         limpia la pantalla
   <span class="cmd">exit</span>          vuelve al modo botones`;
   },
-
   ls(args) {
     const showHidden = args.includes('-a');
     const target = args.find(a => !a.startsWith('-')) || '.';
@@ -523,7 +472,6 @@ const commands = {
       });
     return entries.join('  ') || '<span class="muted">(vacío)</span>';
   },
-
   cd(args) {
     const target = args[0] || '~';
     const pathArr = resolvePath(target);
@@ -534,11 +482,9 @@ const commands = {
     updatePrompt();
     return '';
   },
-
   pwd() {
     return pathStr(cwd);
   },
-
   cat(args) {
     if (!args[0]) return '<span class="err">cat: falta el nombre del archivo</span>';
     const pathArr = resolvePath(args[0]);
@@ -547,7 +493,6 @@ const commands = {
     if (node.type === 'dir') return `<span class="err">cat: ${escapeHtml(args[0])}: es un directorio</span>`;
     return escapeHtml(node.content);
   },
-
   tree() {
     function walk(node, prefix = '', isLast = true) {
       let result = '';
@@ -583,30 +528,23 @@ const commands = {
     return null;
   }
 };
-
 /* ============================================================
    PROCESAR INPUT
    ============================================================ */
-
 function updatePrompt() {
   promptEl.textContent = `visitor@portfolio:${prettyPath(cwd)}$`;
 }
-
 function runCommand(line) {
   const trimmed = line.trim();
   if (!trimmed) return;
-
   // Echo del comando
   appendOutput(`<div><span class="cmd">${escapeHtml(promptEl.textContent)}</span> ${escapeHtml(trimmed)}</div>`);
-
   // Logging opcional
   logCommand(trimmed);
-
   // Parsear
   const parts = trimmed.split(/\s+/);
   const cmd = parts[0];
   const args = parts.slice(1);
-
   if (commands[cmd]) {
     const result = commands[cmd](args);
     if (result !== null && result !== '') {
@@ -616,7 +554,6 @@ function runCommand(line) {
     appendOutput(`<div class="err">${escapeHtml(cmd)}: comando no encontrado. Prueba "help".</div>`);
   }
 }
-
 inputEl.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     const value = inputEl.value;
@@ -643,11 +580,9 @@ inputEl.addEventListener('keydown', (e) => {
     }
   }
 });
-
 /* ============================================================
    CAMBIO DE MODO
    ============================================================ */
-
 function enterInteractive() {
   interactiveMode = true;
   buttonsBar.style.display = 'none';
@@ -659,7 +594,6 @@ function enterInteractive() {
   updatePrompt();
   setTimeout(() => inputEl.focus(), 100);
 }
-
 function exitInteractive() {
   interactiveMode = false;
   inputLine.classList.remove('active');
@@ -669,13 +603,10 @@ function exitInteractive() {
 <div>Siempre hay más de lo que se ve a simple vista.</div>
 <div class="muted">Comandos disponibles: whoami, skills, experience, contact<span class="term-cursor"></span></div>`;
 }
-
 document.getElementById('glitch-btn').addEventListener('click', enterInteractive);
-
 /* ============================================================
    LOGGING (Discord webhook)
    ============================================================ */
-
 function logCommand(cmd) {
   if (!WEBHOOK_URL) return;
   try {
@@ -688,11 +619,9 @@ function logCommand(cmd) {
     }).catch(() => {});
   } catch (e) {}
 }
-
 /* ============================================================
    MODO BOTONES (lo de antes)
    ============================================================ */
-
 const responses = {
   whoami: `<div class="cmd">$ whoami</div>
 <div>Analista de seguridad en formación. Apasionado por la ética hacker, el pensamiento crítico y la adaptación como fuente de progreso.</div>
@@ -711,7 +640,6 @@ const responses = {
 <div>→ linkedin: www.linkedin.com/in/jordi-larroya-3b3aa0b0</div>
 <div>→ teléfono: 680 398 048`
 };
-
 document.querySelectorAll('.cmd-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const cmd = btn.dataset.cmd;
@@ -722,25 +650,6 @@ document.querySelectorAll('.cmd-btn').forEach(btn => {
     }
   });
 });
-
-/* ============================================================
-   ANIMACIONES INICIALES (skills + counters)
-   ============================================================ */
-function animateCount(id, target) {
-  const el = document.getElementById(id);
-  let current = 0;
-  const step = Math.max(1, Math.round(target / 30));
-  const timer = setInterval(() => {
-    current += step;
-    if (current >= target) { current = target; clearInterval(timer); }
-    el.textContent = current;
-  }, 40);
-}
-setTimeout(() => {
-  animateCount('Cursos', 5);
-  animateCount('Certificados Profesionales', 2);
-  animateCount('Idiomas', 2); 
-  }, 300);
 </script>
 </body>
 </html>
