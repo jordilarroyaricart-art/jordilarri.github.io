@@ -279,13 +279,6 @@
 </div>
 <script>
 /* ============================================================
-   CONFIGURACIÓN — edita estos valores
-   ============================================================ */
-// Webhook de Discord para registrar comandos. Vacío = desactivado.
-// Cómo conseguirlo: en tu canal de Discord → Editar canal → Integraciones →
-// Webhooks → Nuevo Webhook → Copiar URL del Webhook
-const WEBHOOK_URL = 'https://discord.com/api/webhooks/1501326624010932264/awjxBWIspU5wSBnvKu2QfSXb1o97xNiBDwaawy1LSRTLhxx81O7Rkj8NVlnm0Ws6LT9_';
-/* ============================================================
    SISTEMA DE ARCHIVOS VIRTUAL
    Edita el contenido para personalizar tu CV
    ============================================================ */
@@ -539,8 +532,6 @@ function runCommand(line) {
   if (!trimmed) return;
   // Echo del comando
   appendOutput(`<div><span class="cmd">${escapeHtml(promptEl.textContent)}</span> ${escapeHtml(trimmed)}</div>`);
-  // Logging opcional
-  logCommand(trimmed);
   // Parsear
   const parts = trimmed.split(/\s+/);
   const cmd = parts[0];
@@ -589,7 +580,6 @@ function enterInteractive() {
   inputLine.classList.add('active');
   out.innerHTML = `<div class="cmd">[!] glitch detectado · modo interactivo activado</div>
 <div class="muted">Sistema de archivos cargado. Escribe "help" para empezar.</div>
-<div class="muted">// Aviso: los comandos pueden ser registrados con fines analíticos.</div>
 <div></div>`;
   updatePrompt();
   setTimeout(() => inputEl.focus(), 100);
@@ -605,22 +595,7 @@ function exitInteractive() {
 }
 document.getElementById('glitch-btn').addEventListener('click', enterInteractive);
 /* ============================================================
-   LOGGING (Discord webhook)
-   ============================================================ */
-function logCommand(cmd) {
-  if (!WEBHOOK_URL) return;
-  try {
-    fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        content: `\`${cmd}\` · ${navigator.language || '?'} · ${new Date().toISOString()}`
-      })
-    }).catch(() => {});
-  } catch (e) {}
-}
-/* ============================================================
-   MODO BOTONES (lo de antes)
+   MODO BOTONES
    ============================================================ */
 const responses = {
   whoami: `<div class="cmd">$ whoami</div>
