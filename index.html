@@ -234,7 +234,7 @@
     box-shadow: 0 0 4px var(--accent);
   }
   .glitch-btn.glitching {
-    animation: glitch-flash 0.25s steps(3, end);
+    animation: glitch-flash 0.25s steps(3, end) 3;
   }
   @keyframes glitch-flash {
     0%   { opacity: 0.35; transform: translate(0, 0) scale(1); background: var(--accent); }
@@ -288,9 +288,9 @@
       <input type="text" id="term-input" class="term-input" autocomplete="off" spellcheck="false">
     </div>
   </div>
-  <div class="actions">
-    <button class="action-btn" onclick="window.open('https://www.linkedin.com/in/jordi-larroya-3b3aa0b0/', '_blank', 'noopener,noreferrer')">LinkedIn</button>
-    <button class="action-btn" onclick="window.open('https://mega.nz/file/97x2HYTL#gKxVglDHYAizu5-nsxXdKLJlLyR3zA319QmcYLd1FLs', '_blank', 'noopener,noreferrer')">Descargar PDF</button>
+<div class="actions">
+    <button class="action-btn" id="btn-linkedin">LinkedIn</button>
+    <button class="action-btn" id="btn-pdf">Descargar PDF</button>
   </div>
   <!-- Botón glitch: parece un píxel suelto -->
   <button class="glitch-btn" id="glitch-btn" aria-label="???"></button>
@@ -612,6 +612,45 @@ function exitInteractive() {
 <div class="muted">Comandos disponibles: whoami, skills, experience, contact<span class="term-cursor"></span></div>`;
 }
 document.getElementById('glitch-btn').addEventListener('click', enterInteractive);
+ /* ============================================================
+   REACCIÓN DEL PÍXEL A LOS BOTONES PRINCIPALES
+   ============================================================ */
+
+let linkedinTriggered = false;
+let pdfTriggered = false;
+
+function triggerStrongGlitch() {
+  const btn = document.getElementById('glitch-btn');
+  btn.classList.remove('glitching');  // por si está parpadeando justo ahora
+  void btn.offsetWidth;                // fuerza reset de la animación
+  btn.classList.add('glitching-strong');
+  setTimeout(() => btn.classList.remove('glitching-strong'), 800);
+}
+
+document.getElementById('btn-linkedin').addEventListener('click', () => {
+  if (!linkedinTriggered) {
+    linkedinTriggered = true;
+    triggerStrongGlitch();
+    // Pequeño retraso antes de abrir, para que el visitante perciba el glitch
+    setTimeout(() => {
+      window.open('https://www.linkedin.com/in/jordi-larroya-3b3aa0b0', '_blank', 'noopener,noreferrer');
+    }, 350);
+  } else {
+    window.open('https://www.linkedin.com/in/jordi-larroya-3b3aa0b0', '_blank', 'noopener,noreferrer');
+  }
+});
+
+document.getElementById('btn-pdf').addEventListener('click', () => {
+  if (!pdfTriggered) {
+    pdfTriggered = true;
+    triggerStrongGlitch();
+    setTimeout(() => {
+      window.open('https://mega.nz/file/97x2HYTL#gKxVglDHYAizu5-nsxXdKLJlLyR3zA319QmcYLd1FLs', '_blank', 'noopener,noreferrer');
+    }, 350);
+  } else {
+    window.open('https://mega.nz/file/97x2HYTL#gKxVglDHYAizu5-nsxXdKLJlLyR3zA319QmcYLd1FLs', '_blank', 'noopener,noreferrer');
+  }
+});
  /* ============================================================
    COMPORTAMIENTO DEL PÍXEL GLITCH
    ============================================================ */
