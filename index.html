@@ -351,48 +351,31 @@ Idiomas: Español (nativo), Catalan (nativo)` },
             skills: {
               type: 'dir',
               children: {
-                'offensive.txt': { type: 'file', content:
-`# Seguridad Ofensiva
+                'skills.txt': { type: 'file', content:
+`# Capacidades
 
-- Pentesting de aplicaciones web
-- Reconocimiento y OSINT
-- Explotación básica de vulnerabilidades
-- Post-explotación y persistencia` },
-                'defensive.txt': { type: 'file', content:
-`# Seguridad Defensiva
-
-- Hardening de sistemas Linux/Windows
-- Configuración de firewalls
-- Análisis de logs
-- Detección de intrusiones` },
-                'tools.txt': { type: 'file', content:
-`# Herramientas
-
-Reconocimiento:  Nmap, Shodan, theHarvester
-Web:             Burp Suite, OWASP ZAP, sqlmap
-Explotación:     Metasploit, Hydra
-Forense:         Wireshark, Volatility, Autopsy
-Scripting:       Python, Bash, PowerShell` }
-              }
+→ Recopilación, Gestión y Presentación de datos
+→ Excel, Sharepoint, Teams, OneDrive, Teams
+→ Coordinación, Docencia, Optimización de procesos de trabajo` }
             },
 
             experience: {
               type: 'dir',
               children: {
-                '2024_practicas.md': { type: 'file', content:
-`## 2024 · Prácticas en EmpresaX
+                '2025_Maswer.md': { type: 'file', content:
+`## 2025 · Maswer
 
-- Tareas relacionadas con [...]
-- Tecnologías: [...]
-- Logros: [...]` },
-                '2023_homelab.md': { type: 'file', content:
-`## 2023 · Lab personal
+- Validación software y componentes de vehículos EV, PHEV y combustión
+- Diseño y ejecución de pruebas de validación 
+- Formación y coordinación en distintas areas técnicas 
+- Presentación de resultados` },
+                '2022_CRM3.md': { type: 'file', content:
+`## 2022 · CRM3
 
-Montaje de red doméstica segmentada con:
-- pfSense como firewall
-- VLANs separadas para IoT, lab y personal
-- Suricata para detección de intrusiones
-- ELK Stack para análisis de logs` }
+
+- Conducción profesional
+- Responsable de grupos de trabajo y formación
+- Recopilación y gestión de datos` }
               }
             },
 
@@ -402,15 +385,9 @@ Montaje de red doméstica segmentada con:
                 'formacion.txt': { type: 'file', content:
 `# Formación
 
-- Ciclo Superior en Ciberseguridad (en curso)
-- [Otros cursos relevantes]` },
-                'certificaciones.txt': { type: 'file', content:
-`# Certificaciones
-
-[En proceso]
-- eJPT (planificada)
-- CEH (planificada)` }
-              }
+- CP N3 Seguridad Informática (en curso)
+- CP N2 Sistemas Microinformáticos` }
+             }
             },
 
             'contact.txt': { type: 'file', content:
@@ -719,9 +696,9 @@ const responses = {
 <div>Analista de seguridad en formación. Apasionado por la ética hacker, el pensamiento crítico y la adaptación como fuente de progreso.</div>
 <div class="muted">Localización: España · Idiomas: ES, CAT</div>`,
   skills: `<div class="cmd">$ cat skills.txt</div>
-<div>→ Burp Suite, Nmap, Metasploit, Wireshark</div>
-<div>→ Linux hardening, Active Directory, OSINT</div>
-<div>→ Python, Bash, PowerShell scripting</div>`,
+<div>→ Recopilación, Gestión y Presentación de datos</div>
+<div>→ Excel, Sharepoint, Teams, OneDrive, Teams</div>
+<div>→ Coordinación, Docencia, Optimización de procesos de trabajo</div>`,
   experience: `<div class="cmd">$ ls -la /experience/</div>
 <div>2025 Analista automóviles @ Maswer Technical Service</div>
 <div>2022 Conductor-Coordinador @ CRM3 Asociados</div>
@@ -729,7 +706,8 @@ const responses = {
 <div>2013 MPTM Solado @ ET CIATRANS 22 BRC</div>`,
   contact: `<div class="cmd">$ ./contact.sh</div>
 <div>→ email: jordilarroyaricart@gmail.com  </div>
-<div>→ linkedin: www.linkedin.com/in/jordi-larroya-3b3aa0b0</div>`
+<div>→ linkedin: www.linkedin.com/in/jordi-larroya-3b3aa0b0</div>
+<div>→ teléfono: 680 398 048`
 };
 
 document.querySelectorAll('.cmd-btn').forEach(btn => {
