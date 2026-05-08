@@ -620,7 +620,7 @@ const glitchBtn = document.getElementById('glitch-btn');
 
 // Glitch periódico: cada 15-25 segundos parpadea como si fuera interferencia
 function scheduleGlitch() {
-  const next = 5000 + Math.random() * 10000;
+  const next = 4500 + Math.random() * 15000;
   setTimeout(() => {
     if (!interactiveMode) {
       glitchBtn.classList.add('glitching');
